@@ -1,0 +1,59 @@
+# Dependencies  
+/node_modules  
+/.pnp  
+.pnp.*  
+.yarn/*  
+!.yarn/patches  
+!.yarn/plugins  
+!.yarn/releases  
+!.yarn/versions  
+
+# Testing  
+/coverage  
+
+# Next.js  
+/.next/  
+/out/  
+
+# Production Builds  
+/build  
+/dist  
+
+# Miscellaneous  
+.DS_Store  
+*.pem  
+
+# Debugging Logs  
+npm-debug.log*  
+yarn-debug.log*  
+yarn-error.log*  
+.pnpm-debug.log*  
+
+# Environment Variables (can opt-in for committing if needed)  
+.env*  
+
+# Vercel  
+.vercel  
+
+# TypeScript  
+*.tsbuildinfo  
+next-env.d.ts  
+
+# Google Apps Script  
+.clasp.json  
+
+# React (if using service workers)  
+/service-worker.js  
+/precache-manifest.*.js  
+
+# Generated IDE Settings (VS Code, JetBrains)  
+.vscode/  
+.idea/  
+*.iml  
+
+# Logs  
+logs  
+*.log  
+yarn-debug.log*  
+yarn-error.log*  
+.pnpm-debug.log*  

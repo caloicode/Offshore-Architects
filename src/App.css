@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .text-primary {
+    @apply text-gray-800 dark:text-white;
+  }
+  .bg-primary {
+    @apply bg-white dark:bg-gray-800;
+  }
+  .bg-secondary {
+    @apply bg-gray-100 dark:bg-gray-700;
+  }
+  .btn-primary {
+    @apply bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full text-lg;
+  }
+}
