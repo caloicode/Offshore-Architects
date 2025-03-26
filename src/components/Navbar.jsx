@@ -44,7 +44,7 @@ const Navbar = () => {
   }, [isServicesOpen]);
 
   return (
-    <nav className="bg-primary shadow-md fixed w-full z-10 transition-colors duration-500">
+    <nav className="bg-primary shadow-md fixed w-full z-50 transition-colors duration-500">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo and Title */}
         <div className="flex items-center">

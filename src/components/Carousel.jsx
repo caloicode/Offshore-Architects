@@ -1,58 +1,57 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Card from "./Card";
 
 const Carousel = ({ data }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(data.length); // Start in the middle
   const [cardsToShow, setCardsToShow] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(true);
-
-  // Duplicate the first and last few cards for seamless looping
   const extendedData = [...data, ...data, ...data];
+  const transitionRef = useRef();
 
   useEffect(() => {
     const updateCardsToShow = () => {
       if (window.innerWidth >= 1024) {
-        setCardsToShow(3); // Desktop
+        setCardsToShow(3);
       } else if (window.innerWidth >= 768) {
-        setCardsToShow(2); // Tablet
+        setCardsToShow(2);
       } else {
-        setCardsToShow(1); // Mobile
+        setCardsToShow(1);
       }
     };
-
     updateCardsToShow();
     window.addEventListener("resize", updateCardsToShow);
     return () => window.removeEventListener("resize", updateCardsToShow);
   }, []);
 
+  useEffect(() => {
+    transitionRef.current = handleTransitionEnd;
+  });
+
+  const handleTransitionEnd = () => {
+    if (currentIndex >= data.length * 2) {
+      setIsTransitioning(false);
+      setCurrentIndex(data.length);
+    } else if (currentIndex <= 0) {
+      setIsTransitioning(false);
+      setCurrentIndex(data.length);
+    }
+  };
+
+  useEffect(() => {
+    if (!isTransitioning) {
+      // Without transition, instantly snap to the center
+      requestAnimationFrame(() => setIsTransitioning(true));
+    }
+  }, [isTransitioning]);
+
   const nextSlide = () => {
     setIsTransitioning(true);
-    setCurrentIndex((prevIndex) => {
-      if (prevIndex >= data.length * 2) {
-        // If we're at the end of the extended data, reset to the middle without animation
-        setTimeout(() => {
-          setCurrentIndex(data.length);
-          setIsTransitioning(false);
-        }, 300); // Match the transition duration
-        return prevIndex + 1;
-      }
-      return prevIndex + 1;
-    });
+    setCurrentIndex((prev) => prev + 1);
   };
 
   const prevSlide = () => {
     setIsTransitioning(true);
-    setCurrentIndex((prevIndex) => {
-      if (prevIndex <= 0) {
-        // If we're at the start of the extended data, reset to the middle without animation
-        setTimeout(() => {
-          setCurrentIndex(data.length * 2);
-          setIsTransitioning(false);
-        }, 300); // Match the transition duration
-        return prevIndex - 1;
-      }
-      return prevIndex - 1;
-    });
+    setCurrentIndex((prev) => prev - 1);
   };
 
   return (
@@ -60,6 +59,7 @@ const Carousel = ({ data }) => {
       <div className="overflow-hidden">
         <div
           className="flex transition-transform duration-300"
+          onTransitionEnd={() => transitionRef.current()}
           style={{
             transform: `translateX(-${currentIndex * (100 / cardsToShow)}%)`,
             transition: isTransitioning ? "transform 0.3s ease" : "none",
@@ -71,7 +71,7 @@ const Carousel = ({ data }) => {
               className="w-full"
               style={{
                 flex: `0 0 ${100 / cardsToShow}%`,
-                padding: cardsToShow > 1 ? "0 8px" : "0", // Add margin between cards
+                padding: cardsToShow > 1 ? "0 8px" : "0",
               }}
             >
               <Card {...item} />

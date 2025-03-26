@@ -1,4 +1,3 @@
-// ProjectsGallerySection.jsx
 import { useState, useEffect } from "react";
 import Section from "./Section";
 import projectsData from "../data/projectsGallery.json";
@@ -27,7 +26,7 @@ const ProjectsGallerySection = () => {
       <div className="overflow-x-auto pb-4 scrollbar-hide">
         <div
           className="flex flex-wrap content-start gap-4"
-          style={{ minWidth: "max-content", height: "auto" }}
+          style={{ minWidth: 'max-content', height: 'auto' }}
         >
           {projectsData.map((project, index) => (
             <img
