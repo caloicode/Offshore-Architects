@@ -1,0 +1,14 @@
+{
+  "socials": [
+    { "name": "Instagram", "link": "#", "icon": "/icons/insta.png" },
+    { "name": "Facebook", "link": "#", "icon": "/icons/fb.png" },
+    { "name": "YouTube", "link": "#", "icon": "/icons/yt.png" },
+    { "name": "LinkedIn", "link": "#", "icon": "/icons/ln.png" }
+  ],
+  "contact": {
+    "email": "offshorearchitects@gmail.com",
+    "phone": "0912 345 6789",
+    "address": "123 Seaside Blvd, Cebu City, Philippines",
+    "businessHours": "Mon - Fri: 9AM - 6PM"
+  }
+}

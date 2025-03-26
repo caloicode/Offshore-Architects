@@ -4,6 +4,7 @@ import ServicesSection from "../components/ServiceSection";
 import WhyChooseUsSection from "../components/WhyChooseUsSection";
 import ProjectsGallerySection from "../components/ProjectsGallerySection";
 import WhyClientsLoveUs from "../components/WhyClientsLoveUs";
+import Footer from "../components/Footer";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <ProjectsGallerySection />
       <WhyChooseUsSection />
       <WhyClientsLoveUs />
+      <Footer />
       {/* Add more components below */}
     </div>
   );
