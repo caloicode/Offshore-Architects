@@ -1,49 +1,49 @@
 [
-    {
-      "category": "Architectural Design",
-      "service": [
-        "Planning & Designing",
-        "Exterior Designing",
-        "Interior Designing",
-        "Site Development Planning"
-      ],
-      "image": "https://media.licdn.com/dms/image/v2/C4D12AQGI4MmPn9bYKg/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1580570789904?e=2147483647&v=beta&t=WnIYozcqC8nhfDx2Qwsudl3rDtCpBADIkXjk0C75udw",
-      "link": "/services/architectural-design"
-    },
-    {
-      "category": "3D Animations",
-      "service": [
-        "3D Standard Animation (with cutscenes)",
-        "3D Interior Walkthrough (continuous animation)",
-        "Instagram Reels Animation (fast-paced)"
-      ],
-      "image": "https://visualizingarchitecture.com/wp-content/uploads/2017/08/Philly_Night_06_Entourage.jpg",
-      "link": "/services/animations"
-    },
-    {
-      "category": "Architectural Renderings",
-      "service": [
-        "Exterior Rendering",
-        "Interior Rendering",
-        "Site Aerial Views",
-        "3D Floor Plans"
-      ],
-      "image": "https://thearchitectsdiary.com/wp-content/uploads/2019/02/2-photo.jpg",
-      "link": "/services/rendering"
-    },
-    {
-      "category": "3D Floor Plans",
-      "service": [
-        "3D Floor Plan Rendering",
-        "3D Site Plan Rendering"
-      ],
-      "image": "https://mir-s3-cdn-cf.behance.net/project_modules/hd/0c6976132499951.61aa0f222520f.jpg",
-      "link": "/services/3d-floor-plans"
-    },
-    {
-      "category": "Virtual Reality",
-      "service": ["360 Tours"],
-      "image": "https://miro.medium.com/v2/resize:fit:1400/0*_1ifpwo2D7XibCrz",
-      "link": "/services/360-tours"
-    }
-  ]
+  {
+    "category": "Architectural Design",
+    "services": [
+      { "name": "Planning & Designing", "link": "#" },
+      { "name": "Exterior Designing", "link": "#" },
+      { "name": "Interior Designing", "link": "#" },
+      { "name": "Site Development Planning", "link": "#" }
+    ],
+    "image": "https://media.licdn.com/dms/image/v2/C4D12AQGI4MmPn9bYKg/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1580570789904?e=2147483647&v=beta&t=WnIYozcqC8nhfDx2Qwsudl3rDtCpBADIkXjk0C75udw",
+    "link": "/services/architectural-design"
+  },
+  {
+    "category": "3D Animations",
+    "services": [
+      { "name": "3D Standard Animation (with cutscenes)", "link": "#" },
+      { "name": "3D Interior Walkthrough (continuous animation)", "link": "#" },
+      { "name": "Instagram Reels Animation (fast-paced)", "link": "#" }
+    ],
+    "image": "https://visualizingarchitecture.com/wp-content/uploads/2017/08/Philly_Night_06_Entourage.jpg",
+    "link": "/services/animations"
+  },
+  {
+    "category": "Architectural Renderings",
+    "services": [
+      { "name": "Exterior Rendering", "link": "#" },
+      { "name": "Interior Rendering", "link": "#" },
+      { "name": "Site Aerial Views", "link": "#" },
+      { "name": "3D Floor Plans", "link": "#" }
+    ],
+    "image": "https://thearchitectsdiary.com/wp-content/uploads/2019/02/2-photo.jpg",
+    "link": "/services/rendering"
+  },
+  {
+    "category": "3D Floor Plans",
+    "services": [
+      { "name": "3D Floor Plan Rendering", "link": "#" },
+      { "name": "3D Site Plan Rendering", "link": "#" }
+    ],
+    "image": "https://mir-s3-cdn-cf.behance.net/project_modules/hd/0c6976132499951.61aa0f222520f.jpg",
+    "link": "/services/3d-floor-plans"
+  },
+  {
+    "category": "Virtual Reality",
+    "services": [{ "name": "360 Tours", "link": "#" }],
+    "image": "https://miro.medium.com/v2/resize:fit:1400/0*_1ifpwo2D7XibCrz",
+    "link": "/services/360-tours"
+  }
+]

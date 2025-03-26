@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Imjohnfablan",
+    "occupation": "occupation",
+    "review": "Anthony did an outstanding job with the renderings I needed! The quality of his work far exceeded my expectations, and the value for the price paid was exceptional. Highly recommend his services!",
+    "stars": 5,
+    "image": "https://placehold.co/80x80"
+  },
+  {
+    "name": "taernster",
+    "occupation": "occupation",
+    "review": "Anthony did absolutely amazing work. We have been looking at getting a rendering done for months and I had always been back and forth between a couple freelancers. Anthony’s work ultimately won me over and I am thrilled at the result. Will be using for future interior renderings as well as he did an amazing job on our exterior!",
+    "stars": 5,
+    "image": "https://placehold.co/80x80"
+  },
+  {
+    "name": "Jonathanbjarl",
+    "occupation": "occupation",
+    "review": "Anthony B. exceeded my expectations with his creativity and professionalism in design work. His proactive communication and quick responsiveness made the collaboration seamless. Highly recommend!",
+    "stars": 5,
+    "image": "https://placehold.co/80x80"
+  }
+]

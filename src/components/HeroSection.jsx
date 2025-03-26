@@ -1,21 +1,42 @@
+import { useState } from 'react';
+import DayNightSwitch from './DayNightSwitch';
+
 const HeroSection = () => {
+  const [isNightMode, setIsNightMode] = useState(false);
+
+  const toggleBackground = () => {
+    setIsNightMode(!isNightMode);
+  };
+
   return (
     <section
-      className="h-screen flex items-center justify-center bg-cover bg-center"
+      className="relative h-screen flex items-center justify-center bg-cover bg-center"
       style={{
-        backgroundImage:
-          'url("https://www.realsimple.com/thmb/R26WlmAr7Jm3d8YJTRxoB77cDCc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/modern-architecture-GettyImages-1283532143-a61afc966237469fb384890712c9bab1.jpg")',
+        backgroundImage: isNightMode 
+          ? 'url("/images/night.jpg")' 
+          : 'url("/images/day.jpg")',
+        transition: 'background-image 0.5s ease-in-out'
       }}
     >
-      <div className="text-center text-white bg-black/50 p-8 rounded-lg">
+      {/* Content */}
+      <div className="text-center text-white bg-black/50 p-8 rounded-lg max-w-4xl mx-4">
         <h1 className="text-5xl font-bold mb-4">
-          Transform your vision into reality
+          Offshore Architecture & Visualization
         </h1>
         <p className="text-xl mb-8">
-          We provide expert architectural visualization services that bring your
-          ideas to life through cutting-edge 3D designs and animations.
+          By AnthonyB
         </p>
-        <button className="btn-primary">Request a Quote</button>
+        <button className="btn-primary hover:scale-105 transition-transform">
+          Request a Quote
+        </button>
+      </div>
+
+      {/* Day/Night Toggle Switch - Bottom Left */}
+      <div className="absolute bottom-4 left-4">
+        <DayNightSwitch 
+          isNightMode={isNightMode} 
+          toggle={toggleBackground} 
+        />
       </div>
     </section>
   );

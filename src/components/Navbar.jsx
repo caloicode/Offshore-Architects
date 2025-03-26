@@ -1,35 +1,73 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import LightDarkToggle from "./LightDarkToggle";
+import servicesData from "../data/services.json";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [openCategory, setOpenCategory] = useState(null);
+  
+  const servicesDropdownRef = useRef(null);
+  const servicesButtonRef = useRef(null);
+
+  // Control body scroll when menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMenuOpen]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const toggleServices = () => {
+    setIsServicesOpen(!isServicesOpen);
+  };
+
+  const toggleCategory = (category) => {
+    setOpenCategory(openCategory === category ? null : category);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (window.innerWidth >= 1024) {
+        if (isServicesOpen && 
+            servicesDropdownRef.current && 
+            !servicesDropdownRef.current.contains(event.target) &&
+            servicesButtonRef.current &&
+            !servicesButtonRef.current.contains(event.target)) {
+          setIsServicesOpen(false);
+        }
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isServicesOpen]);
+
   return (
     <nav className="bg-white dark:bg-gray-800 shadow-md fixed w-full z-10">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo and Title */}
-
         <div className="flex items-center">
           <img
             src="https://placehold.co/40x40"
             alt="Logo"
             className="h-10 w-10 rounded-full mr-2"
           />
-          <span className="text-xl font-bold text-primary">
-            Offshore Architects
-          </span>
-        </div>
-
-        {/* <div className="flex items-center">
-          <img src="/logo-placeholder.png" alt="Logo" className="h-8 mr-2" />
           <span className="text-xl font-bold text-gray-800 dark:text-white">
             Offshore Architects
           </span>
-        </div> */}
+        </div>
 
         {/* Menu Icon (for mobile) */}
         <button
@@ -54,64 +92,153 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden lg:flex items-center space-x-6">
-          <a
-            href="#"
-            className="text-gray-800 dark:text-white hover:text-gray-600"
-          >
+          <a href="#home" className="text-gray-800 dark:text-white hover:text-gray-600">
             Home
           </a>
-          <a
-            href="#"
-            className="text-gray-800 dark:text-white hover:text-gray-600"
-          >
-            Services
-          </a>
-          <a
-            href="#"
-            className="text-gray-800 dark:text-white hover:text-gray-600"
-          >
+          <div className="relative">
+            <button
+              ref={servicesButtonRef}
+              onClick={toggleServices}
+              className="text-gray-800 dark:text-white hover:text-gray-600 focus:outline-none"
+            >
+              Services
+            </button>
+            {isServicesOpen && (
+              <div 
+                ref={servicesDropdownRef}
+                className="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-gray-800 shadow-lg rounded-lg p-4"
+              >
+                {servicesData.map((service, index) => (
+                  <div key={index}>
+                    <button
+                      onClick={() => toggleCategory(service.category)}
+                      className="w-full text-left text-gray-800 dark:text-white hover:text-gray-600 focus:outline-none"
+                    >
+                      {service.category}
+                    </button>
+                    {openCategory === service.category && (
+                      <div className="pl-4 mt-2">
+                        {service.services.map((item, idx) => (
+                          <a
+                            key={idx}
+                            href={item.link}
+                            className="block text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white mt-1"
+                          >
+                            {item.name}
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                    {index < servicesData.length - 1 && (
+                      <hr className="my-2 border-gray-200 dark:border-gray-700" />
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <a href="#portfolio" className="text-gray-800 dark:text-white hover:text-gray-600">
             Portfolio
           </a>
-          <a
-            href="#"
-            className="text-gray-800 dark:text-white hover:text-gray-600"
-          >
+          <a href="#about" className="text-gray-800 dark:text-white hover:text-gray-600">
             About Us
           </a>
-          <a
-            href="#"
-            className="text-gray-800 dark:text-white hover:text-gray-600"
-          >
+          <a href="#contact" className="text-gray-800 dark:text-white hover:text-gray-600">
             Contact
           </a>
-          <LightDarkToggle />
         </div>
       </div>
 
-      {/* Mobile Menu (Canvas) */}
+      {/* Mobile Menu (Canvas) with overlay */}
       {isMenuOpen && (
-        <div
-          className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-20"
-          onClick={toggleMenu}
-        >
-          <div className="fixed right-0 top-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg">
+        <div className="lg:hidden fixed inset-0 z-20">
+          {/* Semi-transparent overlay */}
+          <div 
+            className="fixed inset-0 bg-black/50 dark:bg-black/70"
+            onClick={toggleMenu}
+          />
+          {/* Menu panel */}
+          <div 
+            className="fixed right-0 top-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="p-4">
-              <a href="#" className="block py-2 text-gray-800 dark:text-white">
+              <button
+                onClick={toggleMenu}
+                className="absolute top-4 right-4 text-gray-800 dark:text-white"
+              >
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  ></path>
+                </svg>
+              </button>
+              <a href="#home" className="block py-2 text-gray-800 dark:text-white" onClick={toggleMenu}>
                 Home
               </a>
-              <a href="#" className="block py-2 text-gray-800 dark:text-white">
+              <hr className="my-2 border-gray-200 dark:border-gray-700" />
+              <button
+                onClick={toggleServices}
+                className="w-full text-left py-2 text-gray-800 dark:text-white"
+              >
                 Services
-              </a>
-              <a href="#" className="block py-2 text-gray-800 dark:text-white">
+              </button>
+              {isServicesOpen && (
+                <div className="pl-4">
+                  {servicesData.map((service, index) => (
+                    <div key={index}>
+                      <button
+                        onClick={() => toggleCategory(service.category)}
+                        className="w-full text-left py-2 text-gray-800 dark:text-white"
+                      >
+                        {service.category}
+                      </button>
+                      {openCategory === service.category && (
+                        <div className="pl-4">
+                          {service.services.map((item, idx) => (
+                            <a
+                              key={idx}
+                              href={item.link}
+                              className="block py-1 text-gray-600 dark:text-gray-300"
+                              onClick={toggleMenu}
+                            >
+                              {item.name}
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                      {index < servicesData.length - 1 && (
+                        <hr className="my-2 border-gray-200 dark:border-gray-700" />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+              <hr className="my-2 border-gray-200 dark:border-gray-700" />
+              <a href="#portfolio" className="block py-2 text-gray-800 dark:text-white" onClick={toggleMenu}>
                 Portfolio
               </a>
-              <a href="#" className="block py-2 text-gray-800 dark:text-white">
+              <hr className="my-2 border-gray-200 dark:border-gray-700" />
+              <a href="#about" className="block py-2 text-gray-800 dark:text-white" onClick={toggleMenu}>
                 About Us
               </a>
-              <a href="#" className="block py-2 text-gray-800 dark:text-white">
+              <hr className="my-2 border-gray-200 dark:border-gray-700" />
+              <a href="#contact" className="block py-2 text-gray-800 dark:text-white" onClick={toggleMenu}>
                 Contact
               </a>
-              <LightDarkToggle />
+              <hr className="my-2 border-gray-200 dark:border-gray-700" />
+              <div className="mt-4">
+                <LightDarkToggle />
+              </div>
             </div>
           </div>
         </div>

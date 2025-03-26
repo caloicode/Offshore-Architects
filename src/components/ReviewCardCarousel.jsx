@@ -1,22 +1,22 @@
 import { useState, useEffect } from "react";
-import Card from "./Card";
+import reviewsData from "../data/reviews.json";
+import ReviewCard from "./ReviewCard";
 
-const Carousel = ({ data }) => {
+const ReviewCardsCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsToShow, setCardsToShow] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(true);
 
-  // Duplicate the first and last few cards for seamless looping
-  const extendedData = [...data, ...data, ...data];
+  const extendedData = [...reviewsData, ...reviewsData, ...reviewsData];
 
   useEffect(() => {
     const updateCardsToShow = () => {
       if (window.innerWidth >= 1024) {
-        setCardsToShow(3); // Desktop
+        setCardsToShow(3);
       } else if (window.innerWidth >= 768) {
-        setCardsToShow(2); // Tablet
+        setCardsToShow(2);
       } else {
-        setCardsToShow(1); // Mobile
+        setCardsToShow(1);
       }
     };
 
@@ -25,34 +25,30 @@ const Carousel = ({ data }) => {
     return () => window.removeEventListener("resize", updateCardsToShow);
   }, []);
 
+  useEffect(() => {
+    if (currentIndex >= reviewsData.length * 2) {
+      setTimeout(() => {
+        setIsTransitioning(false);
+        setCurrentIndex(reviewsData.length);
+      }, 300);
+    } else if (currentIndex <= 0) {
+      setTimeout(() => {
+        setIsTransitioning(false);
+        setCurrentIndex(reviewsData.length * 2);
+      }, 300);
+    }
+  }, [currentIndex]);
+
   const nextSlide = () => {
     setIsTransitioning(true);
-    setCurrentIndex((prevIndex) => {
-      if (prevIndex >= data.length * 2) {
-        // If we're at the end of the extended data, reset to the middle without animation
-        setTimeout(() => {
-          setCurrentIndex(data.length);
-          setIsTransitioning(false);
-        }, 300); // Match the transition duration
-        return prevIndex + 1;
-      }
-      return prevIndex + 1;
-    });
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % extendedData.length);
   };
 
   const prevSlide = () => {
     setIsTransitioning(true);
-    setCurrentIndex((prevIndex) => {
-      if (prevIndex <= 0) {
-        // If we're at the start of the extended data, reset to the middle without animation
-        setTimeout(() => {
-          setCurrentIndex(data.length * 2);
-          setIsTransitioning(false);
-        }, 300); // Match the transition duration
-        return prevIndex - 1;
-      }
-      return prevIndex - 1;
-    });
+    setCurrentIndex((prevIndex) =>
+      prevIndex - 1 < 0 ? extendedData.length - 1 : prevIndex - 1
+    );
   };
 
   return (
@@ -69,12 +65,9 @@ const Carousel = ({ data }) => {
             <div
               key={index}
               className="w-full"
-              style={{
-                flex: `0 0 ${100 / cardsToShow}%`,
-                padding: cardsToShow > 1 ? "0 8px" : "0", // Add margin between cards
-              }}
+              style={{ flex: `0 0 ${100 / cardsToShow}%`, padding: cardsToShow > 1 ? "0 8px" : "0" }}
             >
-              <Card {...item} />
+              <ReviewCard {...item} />
             </div>
           ))}
         </div>
@@ -121,4 +114,4 @@ const Carousel = ({ data }) => {
   );
 };
 
-export default Carousel;
+export default ReviewCardsCarousel;

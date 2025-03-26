@@ -1,8 +1,8 @@
-const Card = ({ category, service, image, link }) => {
+const Card = ({ category, services, image, link }) => {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-105 h-full flex flex-col">
       <div className="relative flex-shrink-0">
-        <img src={image} alt={category} className="w-full h-56 object-cover" /> {/* Increased height */}
+        <img src={image} alt={category} className="w-full h-56 object-cover" />
         <a
           href={link}
           className="absolute top-2 right-2 bg-white dark:bg-gray-700 p-2 rounded-full shadow-md hover:bg-gray-100 dark:hover:bg-gray-600"
@@ -25,10 +25,14 @@ const Card = ({ category, service, image, link }) => {
       </div>
       <div className="p-6 flex flex-col flex-grow">
         <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">{category}</h3>
-        <div className="overflow-y-auto max-h-40"> {/* Increased max height for scrollable area */}
+        <div className="overflow-y-auto max-h-40">
           <ul className="list-disc list-inside text-gray-600 dark:text-gray-300">
-            {service.map((item, index) => (
-              <li key={index}>{item}</li>
+            {services.map((service, index) => (
+              <li key={index}>
+                <a href={service.link} className="hover:text-blue-500 dark:hover:text-blue-400">
+                  {service.name}
+                </a>
+              </li>
             ))}
           </ul>
         </div>
