@@ -1,6 +1,6 @@
 // WhyChooseUsSection.jsx
-import Section from "./Section";
-import whyChooseUsData from '../data/whyChooseUs.json';
+import Section from "../Section";
+import whyChooseUsData from '../../data/whyChooseUs.json';
 
 const WhyChooseUsSection = () => {
   return (

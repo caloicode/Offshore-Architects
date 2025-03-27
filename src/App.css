@@ -15,3 +15,11 @@
     @apply bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full text-lg;
   }
 }
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

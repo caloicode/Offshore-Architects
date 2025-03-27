@@ -1,10 +1,10 @@
 import Navbar from "../components/Navbar";
-import HeroSection from "../components/HeroSection";
-import ServicesSection from "../components/ServiceSection";
-import WhyChooseUsSection from "../components/WhyChooseUsSection";
-import ProjectsGallerySection from "../components/ProjectsGallerySection";
-import VRTourSection from "../components/VRTourSection";
-import WhyClientsLoveUs from "../components/WhyClientsLoveUs";
+import HeroSection from "../components/home/HeroSection.jsx"
+import ServicesSection from "../components/home/ServiceSection";
+import WhyChooseUsSection from "../components/home/WhyChooseUsSection";
+import ProjectsGallerySection from "../components/home/ProjectsGallerySection";
+import VRTourSection from "../components/home/VRTourSection";
+import WhyClientsLoveUs from "../components/home/WhyClientsLoveUs";
 import Footer from "../components/Footer";
 
 function App() {

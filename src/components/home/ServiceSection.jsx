@@ -1,6 +1,6 @@
-import Section from "./Section";
+import Section from "../Section";
 import Carousel from "./Carousel";
-import servicesData from "../data/services.json";
+import servicesData from "../../data/services.json";
 
 const ServicesSection = () => {
   return (

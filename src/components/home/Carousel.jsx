@@ -1,13 +1,12 @@
-import { useState, useEffect } from "react";
-import reviewsData from "../data/reviews.json";
-import ReviewCard from "./ReviewCard";
+import { useState, useEffect, useRef } from "react";
+import Card from '../Card.jsx'
 
-const ReviewCardsCarousel = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+const Carousel = ({ data }) => {
+  const [currentIndex, setCurrentIndex] = useState(data.length); // Start in the middle
   const [cardsToShow, setCardsToShow] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(true);
-
-  const extendedData = [...reviewsData, ...reviewsData, ...reviewsData];
+  const extendedData = [...data, ...data, ...data];
+  const transitionRef = useRef();
 
   useEffect(() => {
     const updateCardsToShow = () => {
@@ -19,36 +18,40 @@ const ReviewCardsCarousel = () => {
         setCardsToShow(1);
       }
     };
-
     updateCardsToShow();
     window.addEventListener("resize", updateCardsToShow);
     return () => window.removeEventListener("resize", updateCardsToShow);
   }, []);
 
   useEffect(() => {
-    if (currentIndex >= reviewsData.length * 2) {
-      setTimeout(() => {
-        setIsTransitioning(false);
-        setCurrentIndex(reviewsData.length);
-      }, 300);
+    transitionRef.current = handleTransitionEnd;
+  });
+
+  const handleTransitionEnd = () => {
+    if (currentIndex >= data.length * 2) {
+      setIsTransitioning(false);
+      setCurrentIndex(data.length);
     } else if (currentIndex <= 0) {
-      setTimeout(() => {
-        setIsTransitioning(false);
-        setCurrentIndex(reviewsData.length * 2);
-      }, 300);
+      setIsTransitioning(false);
+      setCurrentIndex(data.length);
     }
-  }, [currentIndex]);
+  };
+
+  useEffect(() => {
+    if (!isTransitioning) {
+      // Without transition, instantly snap to the center
+      requestAnimationFrame(() => setIsTransitioning(true));
+    }
+  }, [isTransitioning]);
 
   const nextSlide = () => {
     setIsTransitioning(true);
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % extendedData.length);
+    setCurrentIndex((prev) => prev + 1);
   };
 
   const prevSlide = () => {
     setIsTransitioning(true);
-    setCurrentIndex((prevIndex) =>
-      prevIndex - 1 < 0 ? extendedData.length - 1 : prevIndex - 1
-    );
+    setCurrentIndex((prev) => prev - 1);
   };
 
   return (
@@ -56,6 +59,7 @@ const ReviewCardsCarousel = () => {
       <div className="overflow-hidden">
         <div
           className="flex transition-transform duration-300"
+          onTransitionEnd={() => transitionRef.current()}
           style={{
             transform: `translateX(-${currentIndex * (100 / cardsToShow)}%)`,
             transition: isTransitioning ? "transform 0.3s ease" : "none",
@@ -65,9 +69,12 @@ const ReviewCardsCarousel = () => {
             <div
               key={index}
               className="w-full"
-              style={{ flex: `0 0 ${100 / cardsToShow}%`, padding: cardsToShow > 1 ? "0 8px" : "0" }}
+              style={{
+                flex: `0 0 ${100 / cardsToShow}%`,
+                padding: cardsToShow > 1 ? "0 8px" : "0",
+              }}
             >
-              <ReviewCard {...item} />
+              <Card {...item} />
             </div>
           ))}
         </div>
@@ -114,4 +121,4 @@ const ReviewCardsCarousel = () => {
   );
 };
 
-export default ReviewCardsCarousel;
+export default Carousel;
