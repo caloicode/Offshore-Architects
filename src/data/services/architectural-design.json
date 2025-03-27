@@ -1,0 +1,150 @@
+[
+  {
+    "title": "Planning & Design",
+    "link": "planning-and-design",
+    "description": "Comprehensive conceptual planning to bring your architectural vision to life.",
+    "tiles": [
+      {
+        "imageLink": "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?q=80",
+        "imageTitle": "Some Building A",
+        "imageCaption": "lorem ipsum"
+      },
+      {
+        "imageLink": "https://images.unsplash.com/photo-1496564203457-11bb12075d90?q=80",
+        "imageTitle": "Some Building B",
+        "imageCaption": "lorem ipsum"
+      },
+      {
+        "imageLink": "https://images.unsplash.com/photo-1465804575741-338df8554e02?q=80",
+        "imageTitle": "Some Building C",
+        "imageCaption": "lorem ipsum"
+      },
+      {
+        "imageLink": "https://images.unsplash.com/photo-1448630360428-65456885c650?q=80",
+        "imageTitle": "Some Building D",
+        "imageCaption": "lorem ipsum"
+      },
+      {
+        "imageLink": "https://images.unsplash.com/photo-1430417934865-589b63ad5c00?q=80",
+        "imageTitle": "Some Building E",
+        "imageCaption": "lorem ipsum"
+      },
+      {
+        "imageLink": "https://images.unsplash.com/photo-1451976426598-a7593bd6d0b2?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "imageTitle": "Some Building F",
+        "imageCaption": "lorem ipsum"
+      }
+    ]
+  },
+  {
+    "title": "Exterior Design",
+    "link": "exterior-design",
+    "description": "Creative and functional exterior solutions that elevate curb appeal.",
+    "tiles": [
+      {
+        "imageLink": "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?q=80",
+        "imageTitle": "Some Building A",
+        "imageCaption": "lorem ipsum"
+      },
+      {
+        "imageLink": "https://images.unsplash.com/photo-1496564203457-11bb12075d90?q=80",
+        "imageTitle": "Some Building B",
+        "imageCaption": "lorem ipsum"
+      },
+      {
+        "imageLink": "https://images.unsplash.com/photo-1465804575741-338df8554e02?q=80",
+        "imageTitle": "Some Building C",
+        "imageCaption": "lorem ipsum"
+      },
+      {
+        "imageLink": "https://images.unsplash.com/photo-1448630360428-65456885c650?q=80",
+        "imageTitle": "Some Building D",
+        "imageCaption": "lorem ipsum"
+      },
+      {
+        "imageLink": "https://images.unsplash.com/photo-1430417934865-589b63ad5c00?q=80",
+        "imageTitle": "Some Building E",
+        "imageCaption": "lorem ipsum"
+      },
+      {
+        "imageLink": "https://images.unsplash.com/photo-1451976426598-a7593bd6d0b2?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "imageTitle": "Some Building F",
+        "imageCaption": "lorem ipsum"
+      }
+    ]
+  },
+  {
+    "title": "Interior Design",
+    "link": "interior-design",
+    "description": "Tailored interior aesthetics and layouts to reflect lifestyle and brand.",
+    "tiles": [
+      {
+        "imageLink": "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?q=80",
+        "imageTitle": "Some Building A",
+        "imageCaption": "lorem ipsum"
+      },
+      {
+        "imageLink": "https://images.unsplash.com/photo-1496564203457-11bb12075d90?q=80",
+        "imageTitle": "Some Building B",
+        "imageCaption": "lorem ipsum"
+      },
+      {
+        "imageLink": "https://images.unsplash.com/photo-1465804575741-338df8554e02?q=80",
+        "imageTitle": "Some Building C",
+        "imageCaption": "lorem ipsum"
+      },
+      {
+        "imageLink": "https://images.unsplash.com/photo-1448630360428-65456885c650?q=80",
+        "imageTitle": "Some Building D",
+        "imageCaption": "lorem ipsum"
+      },
+      {
+        "imageLink": "https://images.unsplash.com/photo-1430417934865-589b63ad5c00?q=80",
+        "imageTitle": "Some Building E",
+        "imageCaption": "lorem ipsum"
+      },
+      {
+        "imageLink": "https://images.unsplash.com/photo-1451976426598-a7593bd6d0b2?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "imageTitle": "Some Building F",
+        "imageCaption": "lorem ipsum"
+      }
+    ]
+  },
+  {
+    "title": "Site Development Planning",
+    "link": "site-development-planning",
+    "description": "Strategic site layouts optimized for flow, function, and future growth.",
+    "tiles": [
+      {
+        "imageLink": "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?q=80",
+        "imageTitle": "Some Building A",
+        "imageCaption": "lorem ipsum"
+      },
+      {
+        "imageLink": "https://images.unsplash.com/photo-1496564203457-11bb12075d90?q=80",
+        "imageTitle": "Some Building B",
+        "imageCaption": "lorem ipsum"
+      },
+      {
+        "imageLink": "https://images.unsplash.com/photo-1465804575741-338df8554e02?q=80",
+        "imageTitle": "Some Building C",
+        "imageCaption": "lorem ipsum"
+      },
+      {
+        "imageLink": "https://images.unsplash.com/photo-1448630360428-65456885c650?q=80",
+        "imageTitle": "Some Building D",
+        "imageCaption": "lorem ipsum"
+      },
+      {
+        "imageLink": "https://images.unsplash.com/photo-1430417934865-589b63ad5c00?q=80",
+        "imageTitle": "Some Building E",
+        "imageCaption": "lorem ipsum"
+      },
+      {
+        "imageLink": "https://images.unsplash.com/photo-1451976426598-a7593bd6d0b2?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "imageTitle": "Some Building F",
+        "imageCaption": "lorem ipsum"
+      }
+    ]
+  }
+]

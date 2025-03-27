@@ -4,7 +4,7 @@ const Footer = () => {
   const { socials, contact } = footerData;
 
   return (
-    <footer className="bg-gray-800 text-white py-10 px-4 mt-10">
+    <footer id="footer" className="bg-gray-800 text-white py-10 px-4 mt-10">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
           <h4 className="text-xl font-bold mb-4">Contact Us</h4>

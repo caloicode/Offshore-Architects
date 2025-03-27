@@ -80,7 +80,7 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden lg:flex items-center space-x-6">
-          <a href="#home" className="text-primary hover:text-gray-600">
+          <a href="/" className="text-primary hover:text-gray-600">
             Home
           </a>
           <div className="relative">
@@ -131,7 +131,7 @@ const Navbar = () => {
           <a href="#about" className="text-primary hover:text-gray-600">
             About Us
           </a>
-          <a href="#contact" className="text-primary hover:text-gray-600">
+          <a href="#footer" className="text-primary hover:text-gray-600">
             Contact
           </a>
 
@@ -171,7 +171,7 @@ const Navbar = () => {
                 </svg>
               </button>
               <a
-                href="#home"
+                href="/"
                 className="block py-2 text-primary"
                 onClick={toggleMenu}
               >
@@ -233,7 +233,7 @@ const Navbar = () => {
               </a>
               <hr className="my-2 border-gray-200 dark:border-gray-700" />
               <a
-                href="#contact"
+                href="#footer"
                 className="block py-2 text-primary"
                 onClick={toggleMenu}
               >

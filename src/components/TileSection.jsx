@@ -1,100 +1,100 @@
 import { useEffect, useRef, useState } from "react";
-import Section from "../Section";
-import projectsData from "../../data/projectsGallery.json";
 import PhotoSwipeLightbox from "photoswipe/lightbox";
 import PhotoSwipeDynamicCaption from "photoswipe-dynamic-caption-plugin";
 import "photoswipe/style.css";
 import "photoswipe-dynamic-caption-plugin/photoswipe-dynamic-caption-plugin.css";
 
-const ProjectsGallerySection = () => {
+const TileSection = ({ id, title, description, tiles }) => {
   const galleryRef = useRef(null);
   const scrollPosition = useRef(0);
   const [imageSizes, setImageSizes] = useState({});
+
+  const galleryId = `gallery-${title.toLowerCase().replace(/[^a-z0-9-]/g, "-")}`;
 
   useEffect(() => {
     const fetchImageSizes = async () => {
       const sizes = {};
       await Promise.all(
-        projectsData.map((project) => {
+        tiles.map((tile) => {
           return new Promise((resolve) => {
             const img = new Image();
             img.onload = () => {
-              sizes[project.image] = {
+              sizes[tile.imageLink] = {
                 width: img.naturalWidth,
                 height: img.naturalHeight,
               };
               resolve();
             };
-            img.src = project.image;
+            img.src = tile.imageLink;
           });
         })
       );
       setImageSizes(sizes);
     };
     fetchImageSizes();
-  }, []);
+  }, [tiles]);
 
   useEffect(() => {
     if (!galleryRef.current || Object.keys(imageSizes).length === 0) return;
 
     const lightbox = new PhotoSwipeLightbox({
-      gallery: '#' + galleryRef.current.id,
-      children: 'a',
-      pswpModule: () => import('photoswipe'),
-      showHideAnimationType: 'fade',
+      gallery: `#${galleryId}`,
+      children: "a",
+      pswpModule: () => import("photoswipe"),
+      showHideAnimationType: "fade",
       bgOpacity: 0.9,
       paddingFn: (viewportSize) => {
-        if (viewportSize.x < 640) {
-          // Mobile view — reduce horizontal padding
-          return { top: 20, bottom: 20, left: 10, right: 10 };
-        }
-        return { top: 30, bottom: 30, left: 70, right: 70 };
-      }      
+        return viewportSize.x < 640
+          ? { top: 20, bottom: 20, left: 10, right: 10 }
+          : { top: 30, bottom: 30, left: 70, right: 70 };
+      },
     });
 
     new PhotoSwipeDynamicCaption(lightbox, {
-      type: 'auto',
+      type: "auto",
       mobileLayoutBreakpoint: 640,
-      captionContent: '.pswp-caption-content',
+      captionContent: ".pswp-caption-content",
     });
 
-    lightbox.on('beforeOpen', () => {
+    lightbox.on("beforeOpen", () => {
       scrollPosition.current = window.scrollY;
-      document.body.style.position = 'fixed';
+      document.body.style.position = "fixed";
       document.body.style.top = `-${scrollPosition.current}px`;
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     });
 
-    lightbox.on('close', () => {
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.overflow = '';
+    lightbox.on("close", () => {
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.overflow = "";
       window.scrollTo({ top: scrollPosition.current });
     });
 
     lightbox.init();
     return () => lightbox.destroy();
-  }, [imageSizes]);
+  }, [imageSizes, galleryId]);
 
   return (
-    <Section
-      id="projects-gallery"
-      title="Projects Gallery"
-      subtitle="A showcase of our remarkable designs and architectural endeavors."
-      className="bg-gray-100 dark:bg-gray-700"
-    >
-      <div className="w-full overflow-x-auto pb-4 scrollbar-hide">
+    <section className="py-1 px-4 max-w-6xl mx-auto">
+      <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 shadow-sm mb-10">
+        {/* Header */}
+        <div id={id} className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4 scroll-mt-24">
+          <h3 className="text-2xl font-bold">{title}</h3>
+          <p className="text-gray-600 dark:text-gray-300">{description}</p>
+        </div>
+
+        {/* Gallery */}
         <div
-          id="pswp-gallery"
+          id={galleryId}
           ref={galleryRef}
-          className="flex gap-4 w-max px-4"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
         >
-          {projectsData.map((project, index) => {
-            const size = imageSizes[project.image];
+          {tiles.map((tile, index) => {
+            const size = imageSizes[tile.imageLink];
             return (
-              <div key={index} className="flex-shrink-0 w-60">
+              <div key={index} className="p-2">
                 <a
-                  href={project.image}
+                  href={tile.imageLink}
                   data-pswp-width={size?.width || 1600}
                   data-pswp-height={size?.height || 900}
                   target="_blank"
@@ -103,22 +103,24 @@ const ProjectsGallerySection = () => {
                 >
                   <div className="relative aspect-[3/2] overflow-hidden rounded-lg shadow">
                     <img
-                      src={project.image}
-                      alt={`${project.name} - ${project.description}`}
+                      src={tile.imageLink}
+                      alt={tile.imageTitle}
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       loading="lazy"
                     />
                   </div>
+                  {/* Hidden caption for PhotoSwipe */}
                   <span className="pswp-caption-content hidden">
-                    <h3 className="text-xl font-bold mb-2">{project.name}</h3>
-                    <p className="text-base">{project.description}</p>
+                    <h3 className="text-xl font-bold mb-2">{tile.imageTitle}</h3>
+                    <p className="text-base">{tile.imageCaption}</p>
                   </span>
+                  {/* Preview caption under tile */}
                   <div className="mt-2 px-1">
                     <h4 className="font-medium text-gray-900 dark:text-white line-clamp-1">
-                      {project.name}
+                      {tile.imageTitle}
                     </h4>
                     <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
-                      {project.description}
+                      {tile.imageCaption}
                     </p>
                   </div>
                 </a>
@@ -128,6 +130,7 @@ const ProjectsGallerySection = () => {
         </div>
       </div>
 
+      {/* PhotoSwipe Custom Styles */}
       <style>{`
         .pswp__dynamic-caption--below {
           max-width: 800px;
@@ -154,8 +157,8 @@ const ProjectsGallerySection = () => {
           line-height: 1.5;
         }
       `}</style>
-    </Section>
+    </section>
   );
 };
 
-export default ProjectsGallerySection;
+export default TileSection;

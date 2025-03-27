@@ -14,6 +14,24 @@
   .btn-primary {
     @apply bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full text-lg;
   }
+
+  /* Service Pages */
+  .s-wrapper {
+    @apply bg-white text-gray-900 dark:bg-gray-900 dark:text-white min-h-screen flex flex-col;
+  }
+  .s-header {
+    @apply py-20 text-center bg-gray-100 dark:bg-gray-800 mt-16;
+  }
+  .s-h1 {
+    @apply text-4xl font-bold mb-2;
+  }
+  .s-p {
+    @apply text-lg text-gray-600 dark:text-gray-300;
+  }
+  .s-main {
+    @apply flex-grow;
+  }
+
 }
 
 .scrollbar-hide {
@@ -22,4 +40,9 @@
 }
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 1rem; /* for fixed navbar offset */
 }
