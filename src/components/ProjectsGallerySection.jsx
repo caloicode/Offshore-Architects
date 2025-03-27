@@ -1,20 +1,40 @@
-import { useState, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import Section from "./Section";
 import projectsData from "../data/projectsGallery.json";
+import LightGallery from "lightgallery/react";
+
+import "lightgallery/css/lightgallery.css";
+import "lightgallery/css/lg-thumbnail.css";
+
+import lgThumbnail from "lightgallery/plugins/thumbnail";
 
 const ProjectsGallerySection = () => {
-  const [selectedProject, setSelectedProject] = useState(null);
+  const scrollPosition = useRef(0);
 
   useEffect(() => {
-    if (selectedProject) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
+    const handleOpen = () => {
+      scrollPosition.current = window.scrollY || document.documentElement.scrollTop;
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'relative';
+      document.body.style.top = `0`;
     };
-  }, [selectedProject]);
+
+    const handleClose = () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+
+      window.scrollTo({ top: scrollPosition.current, left: 0 });
+    };
+
+    document.addEventListener('lgAfterOpen', handleOpen);
+    document.addEventListener('lgAfterClose', handleClose);
+
+    return () => {
+      document.removeEventListener('lgAfterOpen', handleOpen);
+      document.removeEventListener('lgAfterClose', handleClose);
+    };
+  }, []);
 
   return (
     <Section
@@ -24,45 +44,65 @@ const ProjectsGallerySection = () => {
       className="bg-gray-100 dark:bg-gray-700"
     >
       <div className="overflow-x-auto pb-4 scrollbar-hide">
-        <div
-          className="flex flex-wrap content-start gap-4"
-          style={{ minWidth: 'max-content', height: 'auto' }}
+        <LightGallery
+          speed={500}
+          plugins={[lgThumbnail]}
+          elementClassNames="flex flex-wrap content-start gap-4 min-w-max"
+          mode="lg-fade"
+          closable={true}
+          backdropDuration={500}
+          container="body"
+          onAfterOpen={() => {
+            const event = new Event('lgAfterOpen');
+            document.dispatchEvent(event);
+          }}
+          onAfterClose={() => {
+            const event = new Event('lgAfterClose');
+            document.dispatchEvent(event);
+          }}
         >
           {projectsData.map((project, index) => (
-            <img
+            <a
               key={index}
-              src={project.image}
-              alt={project.name}
-              onClick={() => setSelectedProject(project)}
-              className="w-60 h-40 object-cover cursor-pointer rounded-lg shadow hover:scale-105 transition-transform flex-shrink-0"
-            />
+              href={project.image}
+              data-sub-html={`<h4>${project.name}</h4><p>${project.description}</p>`}
+            >
+              <img
+                src={project.image}
+                alt={project.name}
+                className="w-60 h-40 object-cover cursor-pointer rounded-lg shadow hover:scale-105 transition-transform flex-shrink-0"
+              />
+            </a>
           ))}
-        </div>
+        </LightGallery>
       </div>
 
-      {selectedProject && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
-          <button
-            className="absolute top-4 right-4 text-white text-4xl"
-            onClick={() => setSelectedProject(null)}
-          >
-            &times;
-          </button>
-          <div className="max-w-5xl w-full mx-auto p-4 flex flex-col items-center">
-            <img
-              src={selectedProject.image}
-              alt={selectedProject.name}
-              className="max-h-[80vh] object-contain mb-4"
-            />
-            <h3 className="text-3xl text-white font-bold mb-2">
-              {selectedProject.name}
-            </h3>
-            <p className="text-gray-300 max-w-3xl text-center">
-              {selectedProject.description}
-            </p>
-          </div>
-        </div>
-      )}
+      <style jsx global>{`
+        .lg-backdrop {
+          background-color: rgba(0, 0, 0, 0.6) !important;
+          backdrop-filter: blur(8px) !important;
+        }
+        .lg-outer {
+          position: fixed !important;
+          width: 100% !important;
+          height: 100% !important;
+          overflow: hidden !important;
+        }
+        .lg-toolbar .lg-download, 
+        .lg-toolbar .lg-zoom-in, 
+        .lg-toolbar .lg-zoom-out, 
+        .lg-toolbar .lg-actual-size {
+          display: none !important;
+        }
+        .lg-toolbar .lg-close {
+          top: 10px !important;
+          right: 10px !important;
+          z-index: 10000 !important;
+          background-color: rgba(0,0,0,0.4) !important;
+          border-radius: 50% !important;
+          padding: 5px !important;
+        }
+      `}</style>
     </Section>
   );
 };
