@@ -1,14 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import Section from "../Section";
 import projectsData from "../../data/projectsGallery.json";
-import PhotoSwipeLightbox from "photoswipe/lightbox";
-import PhotoSwipeDynamicCaption from "photoswipe-dynamic-caption-plugin";
-import "photoswipe/style.css";
-import "photoswipe-dynamic-caption-plugin/photoswipe-dynamic-caption-plugin.css";
+import { usePhotoSwipeGallery } from "../../hooks/usePhotoswipeGallery.js";
 
 const ProjectsGallerySection = () => {
   const galleryRef = useRef(null);
-  const scrollPosition = useRef(0);
   const [imageSizes, setImageSizes] = useState({});
 
   useEffect(() => {
@@ -34,47 +30,7 @@ const ProjectsGallerySection = () => {
     fetchImageSizes();
   }, []);
 
-  useEffect(() => {
-    if (!galleryRef.current || Object.keys(imageSizes).length === 0) return;
-
-    const lightbox = new PhotoSwipeLightbox({
-      gallery: '#' + galleryRef.current.id,
-      children: 'a',
-      pswpModule: () => import('photoswipe'),
-      showHideAnimationType: 'fade',
-      bgOpacity: 0.9,
-      paddingFn: (viewportSize) => {
-        if (viewportSize.x < 640) {
-          // Mobile view — reduce horizontal padding
-          return { top: 20, bottom: 20, left: 10, right: 10 };
-        }
-        return { top: 30, bottom: 30, left: 70, right: 70 };
-      }      
-    });
-
-    new PhotoSwipeDynamicCaption(lightbox, {
-      type: 'auto',
-      mobileLayoutBreakpoint: 640,
-      captionContent: '.pswp-caption-content',
-    });
-
-    lightbox.on('beforeOpen', () => {
-      scrollPosition.current = window.scrollY;
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollPosition.current}px`;
-      document.body.style.overflow = 'hidden';
-    });
-
-    lightbox.on('close', () => {
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.overflow = '';
-      window.scrollTo({ top: scrollPosition.current });
-    });
-
-    lightbox.init();
-    return () => lightbox.destroy();
-  }, [imageSizes]);
+  usePhotoSwipeGallery(galleryRef, imageSizes);
 
   return (
     <Section
@@ -129,29 +85,43 @@ const ProjectsGallerySection = () => {
       </div>
 
       <style>{`
-        .pswp__dynamic-caption--below {
+        .pswp__bg {
+          backdrop-filter: blur(20px) brightness(0.5) !important;
+          background-color: rgba(0, 0, 0, 0.85) !important;
+        }
+
+        .pswp__dynamic-caption {
+          backdrop-filter: blur(10px);
+          background: rgba(0, 0, 0, 0.7) !important;
+          border-radius: 12px;
+          padding: 20px !important;
           max-width: 800px;
-          margin: 0 auto;
-          padding: 20px 0 0;
-          text-align: center;
+          margin: 0 auto 20px !important;
         }
-        .pswp__dynamic-caption--aside {
-          max-width: 300px;
-          padding: 20px;
-        }
+
         .pswp__dynamic-caption--mobile {
-          background: rgba(0, 0, 0, 0.7);
-          padding: 15px;
+          backdrop-filter: blur(10px);
+          background: rgba(0, 0, 0, 0.8) !important;
+          border-radius: 12px;
+          padding: 15px !important;
         }
+
         .pswp-caption-content h3 {
           color: white;
           font-size: 1.25rem;
           margin-bottom: 0.5rem;
         }
+
         .pswp-caption-content p {
-          color: rgba(255, 255, 255, 0.85);
+          color: rgba(255, 255, 255, 0.9);
           font-size: 1rem;
           line-height: 1.5;
+        }
+
+        /* Prevent scroll jumps */
+        html.pswp-open {
+          overflow: hidden;
+          touch-action: none;
         }
       `}</style>
     </Section>

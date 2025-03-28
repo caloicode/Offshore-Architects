@@ -24,7 +24,7 @@ const HeroSection = () => {
       </div>
 
       {/* Content */}
-      {/* <div className="text-center text-white bg-white/10 backdrop-blur-[2px] p-8 rounded-lg max-w-4xl mx-4 border border-white/20"> */}
+      {/* <div className="text-center text-white bg-white/10 backdrop-blur-[2px] p-8 rounded-lg max-w-4xl mx-4 border  border-white/20"> */}
       <div className="text-center text-white bg-black/30 backdrop-blur-[2px] p-8 rounded-lg max-w-4xl mx-4 border border-white/20">
 
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">

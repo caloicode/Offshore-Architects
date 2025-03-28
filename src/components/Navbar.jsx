@@ -15,7 +15,7 @@ const Navbar = () => {
 
   const [mobileMenuState, setMobileMenuState] = useState({
     isServicesOpen: false,
-    openCategory: null
+    openCategory: null,
   });
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const Navbar = () => {
     } else {
       setMobileMenuState({
         isServicesOpen,
-        openCategory
+        openCategory,
       });
       setIsAnimating(true);
       setTimeout(() => {
@@ -90,9 +90,9 @@ const Navbar = () => {
 
   return (
     <nav className="bg-primary shadow-md fixed w-full z-50 transition-colors duration-500">
-      <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div className="px-4 py-3 flex justify-between items-center mx-auto md:mx-0 w-full">
         {/* Logo and Title */}
-        <div className="flex items-center">
+        <a href="/" className="flex items-center">
           <img
             src="https://placehold.co/40x40"
             alt="Logo"
@@ -101,7 +101,7 @@ const Navbar = () => {
           <span className="text-primary text-xl font-bold">
             Offshore Architects
           </span>
-        </div>
+        </a>
 
         {/* Menu Icon (for mobile) */}
         <button
