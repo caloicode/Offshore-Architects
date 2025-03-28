@@ -20,8 +20,8 @@ const StyledWrapper = styled.div`
     font-size: 17px;
     position: relative;
     display: inline-block;
-    width: 3.5em;
-    height: 2em;
+    width: 3em;
+    height: 1.5em;
   }
 
   .switch input {
@@ -46,7 +46,7 @@ const StyledWrapper = styled.div`
   .slider:before {
     position: absolute;
     content: "";
-    height: 1.4em;
+    height: 1em;
     width: 0.1em;
     border-radius: 0px;
     left: 0.3em;
@@ -61,7 +61,7 @@ const StyledWrapper = styled.div`
   }
 
   input:checked + .slider:before {
-    transform: translateX(2.8em) rotate(360deg);
+    transform: translateX(2.3em) rotate(360deg);
   }
 `;
 

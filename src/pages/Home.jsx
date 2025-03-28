@@ -1,5 +1,6 @@
+import PageWrapper from "../components/PageWrapper";
 import Navbar from "../components/Navbar";
-import HeroSection from "../components/home/HeroSection.jsx"
+import HeroSection from "../components/home/HeroSection";
 import ServicesSection from "../components/home/ServiceSection";
 import WhyChooseUsSection from "../components/home/WhyChooseUsSection";
 import ProjectsGallerySection from "../components/home/ProjectsGallerySection";
@@ -9,17 +10,18 @@ import Footer from "../components/Footer";
 
 function App() {
   return (
-    <div className="dark:bg-gray-900">
-      <Navbar />
-      <HeroSection />
-      <ServicesSection />
-      <ProjectsGallerySection />
-      {/* <VRTourSection /> */}
-      <WhyChooseUsSection />
-      <WhyClientsLoveUs />
-      <Footer />
-      {/* Add more components below */}
-    </div>
+    <PageWrapper>
+      <div className="dark:bg-gray-900">
+        <Navbar />
+        <HeroSection />
+        <ServicesSection />
+        <ProjectsGallerySection />
+        {/* <VRTourSection /> */}
+        <WhyChooseUsSection />
+        <WhyClientsLoveUs />
+        <Footer />
+      </div>
+    </PageWrapper>
   );
 }
 

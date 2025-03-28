@@ -2,22 +2,22 @@
     {
       "title": "Tailored Design Solutions",
       "subtitle": "Customized services that meet your specific needs and vision.",
-      "icon": "🎯"
+      "icon": "/wcu-icons/target.png"
     },
     {
       "title": "Comprehensive Service Range",
       "subtitle": "From planning to 3D visualization, all in one place.",
-      "icon": "🛠️"
+      "icon": "/wcu-icons/execution.png"
     },
     {
       "title": "Customer Satisfaction",
       "subtitle": "We prioritize customer satisfaction and strive to exceed your expectations with every project.",
-      "icon": "🤝"
+      "icon": "/wcu-icons/deal.png"
     },
     {
       "title": "High-Quality 3D Visuals",
       "subtitle": "Stunning, photorealistic renderings to bring your ideas to life.",
-      "icon": "📸"
+      "icon": "/wcu-icons/image.png"
     }
   ]
   
