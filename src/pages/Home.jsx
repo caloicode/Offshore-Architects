@@ -16,7 +16,7 @@ function App() {
         <HeroSection />
         <ServicesSection />
         <ProjectsGallerySection />
-        {/* <VRTourSection /> */}
+        <VRTourSection />
         <WhyChooseUsSection />
         <WhyClientsLoveUs />
         <Footer />

@@ -28,7 +28,7 @@ const HeroSection = () => {
       <div className="text-center text-white bg-black/30 backdrop-blur-[2px] p-8 rounded-lg max-w-4xl mx-4 border border-white/20">
 
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-          Offshore Architecture & Visualization
+          Offshore Architects PH
         </h1>
         <p className="text-lg sm:text-xl mb-2">By AnthonyB</p>
         <p className="text-sm sm:text-base text-white/90">
