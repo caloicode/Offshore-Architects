@@ -6,6 +6,8 @@ import { usePhotoSwipeGallery } from "../../hooks/usePhotoswipeGallery.js";
 const ProjectsGallerySection = () => {
   const galleryRef = useRef(null);
   const [imageSizes, setImageSizes] = useState({});
+  const [showBlurLayer, setShowBlurLayer] = useState(false);
+  const blurLayerRef = useRef(null);
 
   useEffect(() => {
     const fetchImageSizes = async () => {
@@ -32,13 +34,53 @@ const ProjectsGallerySection = () => {
 
   usePhotoSwipeGallery(galleryRef, imageSizes);
 
+  useEffect(() => {
+    const handleBeforeOpen = () => {
+      // Create screenshot of current view for blur effect
+      setShowBlurLayer(true);
+    };
+
+    const handleAfterInit = () => {
+      // Ensure blur layer is behind PhotoSwipe (z-index management)
+      if (blurLayerRef.current) {
+        blurLayerRef.current.style.zIndex = '1499';
+      }
+    };
+
+    const handleClose = () => {
+      setShowBlurLayer(false);
+    };
+
+    document.addEventListener('pswpBeforeOpen', handleBeforeOpen);
+    document.addEventListener('pswpAfterInit', handleAfterInit);
+    document.addEventListener('pswpClose', handleClose);
+
+    return () => {
+      document.removeEventListener('pswpBeforeOpen', handleBeforeOpen);
+      document.removeEventListener('pswpAfterInit', handleAfterInit);
+      document.removeEventListener('pswpClose', handleClose);
+    };
+  }, []);
+
   return (
     <Section
       id="projects-gallery"
       title="Projects Gallery"
       subtitle="A showcase of our remarkable designs and architectural endeavors."
-      className="bg-gray-100 dark:bg-gray-700"
+      className="bg-gray-100 dark:bg-gray-700 relative"
     >
+      {/* Blur layer that sits behind PhotoSwipe */}
+      {showBlurLayer && (
+        <div 
+          ref={blurLayerRef}
+          className="fixed inset-0 bg-black/80 backdrop-blur-md transition-opacity duration-300"
+          style={{
+            zIndex: 1499, // Just below PhotoSwipe (which uses 1500+)
+            pointerEvents: 'none' // Allow clicks to pass through
+          }}
+        />
+      )}
+
       <div className="w-full overflow-x-auto pb-4 scrollbar-hide">
         <div
           id="pswp-gallery"
@@ -85,43 +127,33 @@ const ProjectsGallerySection = () => {
       </div>
 
       <style>{`
-        .pswp__bg {
-          backdrop-filter: blur(20px) brightness(0.5) !important;
-          background-color: rgba(0, 0, 0, 0.85) !important;
+        /* PhotoSwipe overrides */
+        .pswp {
+          --pswp-bg: transparent !important;
+          z-index: 1500 !important;
         }
 
+        .pswp__bg {
+          background: transparent !important;
+        }
+
+        /* Caption styling */
         .pswp__dynamic-caption {
-          backdrop-filter: blur(10px);
-          background: rgba(0, 0, 0, 0.7) !important;
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
           border-radius: 12px;
           padding: 20px !important;
-          max-width: 800px;
-          margin: 0 auto 20px !important;
         }
 
-        .pswp__dynamic-caption--mobile {
-          backdrop-filter: blur(10px);
-          background: rgba(0, 0, 0, 0.8) !important;
-          border-radius: 12px;
-          padding: 15px !important;
+        /* UI Elements */
+        .pswp__button {
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
         }
 
-        .pswp-caption-content h3 {
-          color: white;
-          font-size: 1.25rem;
-          margin-bottom: 0.5rem;
-        }
-
-        .pswp-caption-content p {
-          color: rgba(255, 255, 255, 0.9);
-          font-size: 1rem;
-          line-height: 1.5;
-        }
-
-        /* Prevent scroll jumps */
+        /* Scroll prevention */
         html.pswp-open {
-          overflow: hidden;
-          touch-action: none;
+          overflow: hidden !important;
         }
       `}</style>
     </Section>

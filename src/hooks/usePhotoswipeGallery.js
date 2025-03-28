@@ -13,7 +13,7 @@ export const usePhotoSwipeGallery = (galleryRef, imageSizes) => {
       children: 'a',
       pswpModule: () => import('photoswipe'),
       showHideAnimationType: 'fade',
-      bgOpacity: 0.8, // Increased opacity for darker background
+      bgOpacity: 0, // Set to 0 since we'll handle background separately
       paddingFn: (viewportSize) =>
         viewportSize.x < 640
           ? { top: 20, bottom: 20, left: 10, right: 10 }
@@ -26,12 +26,17 @@ export const usePhotoSwipeGallery = (galleryRef, imageSizes) => {
       captionContent: '.pswp-caption-content',
     });
 
-    // Remove all scroll manipulation
-    lightbox.on('init', () => {
-      lightbox.pswp.on('close', () => {
-        // Focus trap cleanup if needed
-        document.activeElement?.blur();
-      });
+    // Dispatch custom events for blur layer control
+    lightbox.on('beforeOpen', () => {
+      document.dispatchEvent(new CustomEvent('pswpBeforeOpen'));
+    });
+
+    lightbox.on('afterInit', () => {
+      document.dispatchEvent(new CustomEvent('pswpAfterInit'));
+    });
+
+    lightbox.on('close', () => {
+      document.dispatchEvent(new CustomEvent('pswpClose'));
     });
 
     lightbox.init();
